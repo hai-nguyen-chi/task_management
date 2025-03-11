@@ -14,7 +14,7 @@ const wrapHandler = (callback: any) => {
   }
 }
 
-const errorHandlerDefault = (err: any, req: Request, res: Response) => {
+const errorHandlerDefault = (err: any, req: Request, res: Response, next: NextFunction) => {
   const errResponse = err instanceof ErrorWithStatus ? lodash.omit(err, ['status']) : err
   res.status(err.status || HTTP_STATUS.UNPROCESSABLE_ENTITY).json(errResponse)
 }

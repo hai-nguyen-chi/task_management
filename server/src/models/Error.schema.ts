@@ -8,4 +8,14 @@ class ErrorWithStatus {
   }
 }
 
-export { ErrorWithStatus }
+class ErrorEntity {
+  key: string
+  message: string
+
+  constructor({ key, message }: ErrorEntity) {
+    this.key = key
+    this.message = message
+  }
+}
+
+export { ErrorWithStatus, ErrorEntity }

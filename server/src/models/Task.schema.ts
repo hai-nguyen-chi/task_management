@@ -1,5 +1,5 @@
 import { ObjectId } from 'mongodb'
-import { TaskStatus, TaskObject } from '@/constants/task.constants'
+import { TaskStatus } from '@/constants/task.constants'
 
 class TaskSchema {
   _id: ObjectId
@@ -10,7 +10,7 @@ class TaskSchema {
   created_at: Date
   updated_at: Date
 
-  constructor(task: TaskObject) {
+  constructor(task: TaskSchema) {
     this._id = task._id || new ObjectId()
     this.title = task.title
     this.description = task.description
