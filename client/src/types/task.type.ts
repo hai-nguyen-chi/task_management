@@ -1,10 +1,14 @@
-type Task = {
-  id: string
-  title: string
-  description?: string
-  status: 'backlog' | 'in-progress' | 'in-review' | 'completed'
-  tags?: string[]
-  image?: string
+import { type UniqueIdentifier } from '@dnd-kit/core'
+
+type TaskType = {
+  id: UniqueIdentifier
+  content: string
 }
 
-export type { Task }
+type ContainerTaskType = {
+  id: UniqueIdentifier
+  title: string
+  items: TaskType[]
+}
+
+export type { TaskType, ContainerTaskType }

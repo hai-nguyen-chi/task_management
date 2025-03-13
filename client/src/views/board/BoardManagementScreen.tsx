@@ -1,12 +1,11 @@
-'use client'
-
 import { useState } from 'react'
 import {
   DndContext,
   DragOverlay,
   closestCorners,
-  KeyboardSensor,
   PointerSensor,
+  KeyboardSensor,
+  TouchSensor,
   useSensor,
   useSensors,
   type DragStartEvent,
@@ -15,62 +14,51 @@ import {
   type UniqueIdentifier
 } from '@dnd-kit/core'
 import { SortableContext, arrayMove, sortableKeyboardCoordinates, verticalListSortingStrategy } from '@dnd-kit/sortable'
-
-import { TaskColumn } from '@/views/board/task/TaskColumn'
-import { TaskItemDragable } from '@/views/board/task/TaskItemDragable'
-import { TaskItem } from '@/views/board/task/TaskItem'
-
-// Define the structure of our items
-type ItemType = {
-  id: UniqueIdentifier
-  content: string
-}
-
-// Define the structure of our containers
-type ContainerType = {
-  id: UniqueIdentifier
-  title: string
-  items: ItemType[]
-}
+import { type ContainerTaskType } from '@/types/task.type'
+import TaskColumn from '@/views/board/task/TaskColumn'
+import TaskItemDragable from '@/views/board/task/TaskItemDragable'
+import TaskItemWrapper from '@/views/board/task/TaskItemWrapper'
+import TaskItem from '@/views/board/task/TaskItem'
 
 export default function SortableContainers() {
-  // Initial state with 4 columns and their items
-  const [containers, setContainers] = useState<ContainerType[]>([
+  const [containers, setContainers] = useState<ContainerTaskType[]>([
     {
-      id: 'columnA',
-      title: 'Column A',
+      id: 'Backlog',
+      title: 'Backlog',
       items: [
-        { id: 'A1', content: 'A1' },
-        { id: 'A2', content: 'A2' },
-        { id: 'A3', content: 'A3' }
+        { id: 'A1', content: 'Implement CRUD (Create, Read, Update, and Delete) operations' },
+        { id: 'A3', content: 'Implement the ability for users to edit tasks.' }
       ]
     },
     {
-      id: 'columnB',
-      title: 'Column B',
+      id: 'ToDo',
+      title: 'ToDo',
       items: [
-        { id: 'B1', content: 'B1' },
-        { id: 'B2', content: 'B2' },
-        { id: 'B3', content: 'B3' }
+        { id: 'B1', content: 'Investigate Framer-Motion for animations.' },
+        { id: 'B2', content: 'Implement the ability for users to view a specific subset of tasks.' }
       ]
     },
     {
-      id: 'columnC',
-      title: 'Column C',
+      id: 'InProgress',
+      title: 'InProgress',
       items: [
-        { id: 'C1', content: 'C1' },
-        { id: 'C2', content: 'C2' },
-        { id: 'C3', content: 'C3' }
+        { id: 'C1', content: 'Use the useEffect state Hook to update the number of pending tasks.' },
+        { id: 'C2', content: 'Implement the ability for users to delete tasks using the mouse or keyboard.' }
       ]
     },
     {
-      id: 'columnD',
-      title: 'Column D',
+      id: 'InReview',
+      title: 'InReview',
       items: [
-        { id: 'D1', content: 'D1' },
-        { id: 'D2', content: 'D2' },
-        { id: 'D3', content: 'D3' }
+        { id: 'D1', content: 'Create a basic App component structure and styling.' },
+        { id: 'D2', content: 'Design Todo App' },
+        { id: 'D3', content: 'Implement the ability for users to add tasks using the mouse or keyboard.' }
       ]
+    },
+    {
+      id: 'Completed',
+      title: 'Completed',
+      items: []
     }
   ])
 
@@ -80,16 +68,30 @@ export default function SortableContainers() {
 
   // Configure sensors for drag detection
   const sensors = useSensors(
-    useSensor(PointerSensor),
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 8 // Only activate after moving 8px - this helps distinguish between click and drag
+      }
+    }),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates
+    }),
+    useSensor(TouchSensor, {
+      // Press delay of 250ms, with tolerance of 5px of movement
+      activationConstraint: {
+        delay: 250,
+        tolerance: 5
+      }
     })
   )
 
   // Find the container that contains an item
   const findContainer = (id: UniqueIdentifier) => {
-    if (id in containers) return id
+    // Check if the id is a container id
+    const container = containers.find((container) => container.id === id)
+    if (container) return id
 
+    // Check if the id is an item id
     return containers.find((container) => container.items.some((item) => item.id === id))?.id
   }
 
@@ -232,34 +234,33 @@ export default function SortableContainers() {
   const activeItem = findActiveItem()
 
   return (
-    <div className='flex flex-col'>
-      <div className='flex justify-between items-center mb-6'>
-        <h1 className='text-2xl font-bold'>Sortable Multiple Containers</h1>
+    <DndContext
+      sensors={sensors}
+      collisionDetection={closestCorners}
+      onDragStart={handleDragStart}
+      onDragOver={handleDragOver}
+      onDragEnd={handleDragEnd}
+    >
+      <div className='flex -mx-2 h-full'>
+        {containers.map((container) => (
+          <TaskColumn key={container.id} id={container.id} title={container.title} items={container.items}>
+            <SortableContext items={container.items.map((item) => item.id)} strategy={verticalListSortingStrategy}>
+              {container.items.map((item) => (
+                <TaskItemDragable key={item.id} id={item.id}>
+                  <TaskItem title={item.content}></TaskItem>
+                </TaskItemDragable>
+              ))}
+            </SortableContext>
+          </TaskColumn>
+        ))}
       </div>
-
-      <DndContext
-        sensors={sensors}
-        collisionDetection={closestCorners}
-        onDragStart={handleDragStart}
-        onDragOver={handleDragOver}
-        onDragEnd={handleDragEnd}
-      >
-        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4'>
-          {containers.map((container) => (
-            <TaskColumn key={container.id} id={container.id} title={container.title}>
-              <SortableContext items={container.items.map((item) => item.id)} strategy={verticalListSortingStrategy}>
-                {container.items.map((item) => (
-                  <TaskItemDragable key={item.id} id={item.id}>
-                    <TaskItem>{item.content}</TaskItem>
-                  </TaskItemDragable>
-                ))}
-              </SortableContext>
-            </TaskColumn>
-          ))}
-        </div>
-
-        <DragOverlay>{activeItem ? <TaskItem>{activeItem.content}</TaskItem> : null}</DragOverlay>
-      </DndContext>
-    </div>
+      <DragOverlay>
+        {activeItem ? (
+          <TaskItemWrapper isDragging={true}>
+            <TaskItem title={activeItem.content}></TaskItem>
+          </TaskItemWrapper>
+        ) : null}
+      </DragOverlay>
+    </DndContext>
   )
 }

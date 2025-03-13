@@ -1,17 +1,25 @@
-import type { ReactNode } from 'react'
-import type { Task } from '@/types/task.type'
-
-interface TaskCardProps {
-  task: Task
-  onClick: () => void
-}
+import { type UniqueIdentifier } from '@dnd-kit/core'
+import { type TaskType } from '@/types/task.type'
 
 interface TaskColumnProps {
-  id: string
+  id: UniqueIdentifier
   title: string
-  count: number
-  status: Task['status']
-  children: ReactNode
+  items: TaskType[]
+  children: React.ReactNode
 }
 
-export type { TaskCardProps, TaskColumnProps }
+interface TaskItemDragableProps {
+  id: UniqueIdentifier
+  children: React.ReactNode
+}
+
+interface TaskItemWrapperProps {
+  children: React.ReactNode
+  isDragging: boolean
+}
+
+interface TaskItemProps {
+  title: string
+}
+
+export type { TaskColumnProps, TaskItemWrapperProps, TaskItemDragableProps, TaskItemProps }

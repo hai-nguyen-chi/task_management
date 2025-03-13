@@ -3,7 +3,7 @@ import Sidebar from '@/components/SideBar'
 
 const MainLayout = () => {
   return (
-    <div className='grid grid-cols-12 gap-4 p-4'>
+    <div className='grid grid-cols-12 gap-4 p-4 h-screen'>
       <div className='col-span-2'>
         <Sidebar />
       </div>

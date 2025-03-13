@@ -1,24 +1,21 @@
-import type React from 'react'
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
-import type { UniqueIdentifier } from '@dnd-kit/core'
+import { type TaskItemDragableProps } from '@/interfaces/task.interface'
+import TaskItemWrapper from '@/views/board/task/TaskItemWrapper'
 
-interface SortableItemProps {
-  id: UniqueIdentifier
-  children: React.ReactNode
-}
-
-export function TaskItemDragable({ id, children }: SortableItemProps) {
-  const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id })
+export default function TaskItemDragable({ id, children }: TaskItemDragableProps) {
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id })
 
   const style = {
     transform: CSS.Transform.toString(transform),
-    transition
+    transition,
+    opacity: isDragging ? 0.5 : 1,
+    zIndex: isDragging ? 999 : 1
   }
 
   return (
     <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
-      {children}
+      <TaskItemWrapper isDragging={isDragging}>{children}</TaskItemWrapper>
     </div>
   )
 }

@@ -1,6 +1,7 @@
 import React from 'react'
 import { BrowserRouter as Router, useRoutes } from 'react-router-dom'
 import routes from '@/router/index.tsx'
+import '@/App.css'
 
 const AppRoutes = () => {
   const element = useRoutes(routes)
