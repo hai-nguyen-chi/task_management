@@ -4,8 +4,6 @@ import {
   DragOverlay,
   closestCorners,
   PointerSensor,
-  KeyboardSensor,
-  TouchSensor,
   useSensor,
   useSensors,
   type DragStartEvent,
@@ -13,37 +11,36 @@ import {
   type DragOverEvent,
   type UniqueIdentifier
 } from '@dnd-kit/core'
-import { SortableContext, arrayMove, sortableKeyboardCoordinates, verticalListSortingStrategy } from '@dnd-kit/sortable'
+import { SortableContext, arrayMove, verticalListSortingStrategy } from '@dnd-kit/sortable'
 import { type ContainerTaskType } from '@/types/task.type'
-import TaskColumn from '@/views/board/task/TaskColumn'
+import TaskColumn from '@/views/board/BoardColumn'
 import TaskItemDragable from '@/views/board/task/TaskItemDragable'
 import TaskItemWrapper from '@/views/board/task/TaskItemWrapper'
 import TaskItem from '@/views/board/task/TaskItem'
 
-export default function SortableContainers() {
+export default function BoardContainer() {
   const [containers, setContainers] = useState<ContainerTaskType[]>([
     {
       id: 'Backlog',
       title: 'Backlog',
       items: [
         { id: 'A1', content: 'Implement CRUD (Create, Read, Update, and Delete) operations' },
-        { id: 'A3', content: 'Implement the ability for users to edit tasks.' }
+        { id: 'A3', content: 'Implement the ability for users to edit tasks.' },
+        { id: 'B2', content: 'Implement the ability for users to view a specific subset of tasks.' }
       ]
     },
     {
       id: 'ToDo',
       title: 'ToDo',
-      items: [
-        { id: 'B1', content: 'Investigate Framer-Motion for animations.' },
-        { id: 'B2', content: 'Implement the ability for users to view a specific subset of tasks.' }
-      ]
+      items: []
     },
     {
       id: 'InProgress',
       title: 'InProgress',
       items: [
         { id: 'C1', content: 'Use the useEffect state Hook to update the number of pending tasks.' },
-        { id: 'C2', content: 'Implement the ability for users to delete tasks using the mouse or keyboard.' }
+        { id: 'C2', content: 'Implement the ability for users to delete tasks using the mouse or keyboard.' },
+        { id: 'B1', content: 'Investigate Framer-Motion for animations.' }
       ]
     },
     {
@@ -71,16 +68,6 @@ export default function SortableContainers() {
     useSensor(PointerSensor, {
       activationConstraint: {
         distance: 8 // Only activate after moving 8px - this helps distinguish between click and drag
-      }
-    }),
-    useSensor(KeyboardSensor, {
-      coordinateGetter: sortableKeyboardCoordinates
-    }),
-    useSensor(TouchSensor, {
-      // Press delay of 250ms, with tolerance of 5px of movement
-      activationConstraint: {
-        delay: 250,
-        tolerance: 5
       }
     })
   )
@@ -234,14 +221,14 @@ export default function SortableContainers() {
   const activeItem = findActiveItem()
 
   return (
-    <DndContext
-      sensors={sensors}
-      collisionDetection={closestCorners}
-      onDragStart={handleDragStart}
-      onDragOver={handleDragOver}
-      onDragEnd={handleDragEnd}
-    >
-      <div className='flex -mx-2 h-full'>
+    <div className='flex -mx-2 pb-4 h-full'>
+      <DndContext
+        sensors={sensors}
+        collisionDetection={closestCorners}
+        onDragStart={handleDragStart}
+        onDragOver={handleDragOver}
+        onDragEnd={handleDragEnd}
+      >
         {containers.map((container) => (
           <TaskColumn key={container.id} id={container.id} title={container.title} items={container.items}>
             <SortableContext items={container.items.map((item) => item.id)} strategy={verticalListSortingStrategy}>
@@ -253,14 +240,14 @@ export default function SortableContainers() {
             </SortableContext>
           </TaskColumn>
         ))}
-      </div>
-      <DragOverlay>
-        {activeItem ? (
-          <TaskItemWrapper isDragging={true}>
-            <TaskItem title={activeItem.content}></TaskItem>
-          </TaskItemWrapper>
-        ) : null}
-      </DragOverlay>
-    </DndContext>
+        <DragOverlay>
+          {activeItem ? (
+            <TaskItemWrapper isDragging={true}>
+              <TaskItem title={activeItem.content}></TaskItem>
+            </TaskItemWrapper>
+          ) : null}
+        </DragOverlay>
+      </DndContext>
+    </div>
   )
 }

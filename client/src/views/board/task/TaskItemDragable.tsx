@@ -9,8 +9,7 @@ export default function TaskItemDragable({ id, children }: TaskItemDragableProps
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
-    opacity: isDragging ? 0.5 : 1,
-    zIndex: isDragging ? 999 : 1
+    opacity: isDragging ? 0.5 : 1
   }
 
   return (

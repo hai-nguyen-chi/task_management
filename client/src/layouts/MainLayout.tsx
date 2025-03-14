@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router-dom'
-import Sidebar from '@/components/SideBar'
+import Sidebar from '@/components/sidebar/SideBar'
 
 const MainLayout = () => {
   return (
@@ -7,7 +7,7 @@ const MainLayout = () => {
       <div className='col-span-2'>
         <Sidebar />
       </div>
-      <div className='col-span-10'>
+      <div className='col-span-10 overflow-hidden'>
         <Outlet />
       </div>
     </div>

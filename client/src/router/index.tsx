@@ -4,7 +4,8 @@ import { RouteObject } from 'react-router-dom'
 const MainLayout = lazy(() => import('@/layouts/MainLayout'))
 
 const Login = lazy(() => import('@/views/Login'))
-const BoardManagementScreen = lazy(() => import('@/views/board/BoardManagementScreen'))
+const BoardContainer = lazy(() => import('@/views/board/BoardContainer'))
+const PageKanban = lazy(() => import('@/views/kanban/PageKanban'))
 
 const routes: RouteObject[] = [
   {
@@ -16,9 +17,13 @@ const routes: RouteObject[] = [
     children: [
       {
         path: '/',
-        element: <BoardManagementScreen />
+        element: <BoardContainer />
       }
     ]
+  },
+  {
+    path: '/kanban',
+    element: <PageKanban />
   }
 ]
 
