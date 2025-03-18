@@ -13,7 +13,7 @@ import {
 } from '@dnd-kit/core'
 import { SortableContext, arrayMove, verticalListSortingStrategy } from '@dnd-kit/sortable'
 import { type ContainerTaskType } from '@/types/task.type'
-import TaskColumn from '@/views/board/BoardColumn'
+import BoardColumn from '@/views/board/BoardColumn'
 import TaskItemDragable from '@/views/board/task/TaskItemDragable'
 import TaskItemWrapper from '@/views/board/task/TaskItemWrapper'
 import TaskItem from '@/views/board/task/TaskItem'
@@ -230,7 +230,7 @@ export default function BoardContainer() {
         onDragEnd={handleDragEnd}
       >
         {containers.map((container) => (
-          <TaskColumn key={container.id} id={container.id} title={container.title} items={container.items}>
+          <BoardColumn key={container.id} id={container.id} title={container.title} items={container.items}>
             <SortableContext items={container.items.map((item) => item.id)} strategy={verticalListSortingStrategy}>
               {container.items.map((item) => (
                 <TaskItemDragable key={item.id} id={item.id}>
@@ -238,7 +238,7 @@ export default function BoardContainer() {
                 </TaskItemDragable>
               ))}
             </SortableContext>
-          </TaskColumn>
+          </BoardColumn>
         ))}
         <DragOverlay>
           {activeItem ? (

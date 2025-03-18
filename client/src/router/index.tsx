@@ -5,7 +5,6 @@ const MainLayout = lazy(() => import('@/layouts/MainLayout'))
 
 const Login = lazy(() => import('@/views/Login'))
 const BoardContainer = lazy(() => import('@/views/board/BoardContainer'))
-const PageKanban = lazy(() => import('@/views/kanban/PageKanban'))
 
 const routes: RouteObject[] = [
   {
@@ -20,10 +19,6 @@ const routes: RouteObject[] = [
         element: <BoardContainer />
       }
     ]
-  },
-  {
-    path: '/kanban',
-    element: <PageKanban />
   }
 ]
 
