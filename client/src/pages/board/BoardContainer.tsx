@@ -12,11 +12,11 @@ import {
   type UniqueIdentifier
 } from '@dnd-kit/core'
 import { SortableContext, arrayMove, verticalListSortingStrategy } from '@dnd-kit/sortable'
-import { type ContainerTaskType } from '@/types/task.type'
-import BoardColumn from '@/views/board/BoardColumn'
-import TaskItemDragable from '@/views/board/task/TaskItemDragable'
-import TaskItemWrapper from '@/views/board/task/TaskItemWrapper'
-import TaskItem from '@/views/board/task/TaskItem'
+import { type ContainerTaskType } from '@/types/task'
+import BoardColumn from '@/pages/board/BoardColumn'
+import TaskItemDragable from '@/pages/board/task/TaskItemDragable'
+import TaskItemWrapper from '@/pages/board/task/TaskItemWrapper'
+import TaskItem from '@/pages/board/task/TaskItem'
 
 export default function BoardContainer() {
   const [containers, setContainers] = useState<ContainerTaskType[]>([

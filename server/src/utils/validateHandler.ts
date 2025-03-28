@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express'
 import { ValidationChain, validationResult } from 'express-validator'
 import { RunnableValidationChains } from 'express-validator/lib/middlewares/schema'
-import { HTTP_STATUS } from '@/constants/httpStatus.constants'
+import { HTTP_STATUS } from '@/types/httpStatus.d'
 import { ErrorWithStatus, ErrorEntity } from '@/models/Error.schema'
 import lodash from 'lodash'
 

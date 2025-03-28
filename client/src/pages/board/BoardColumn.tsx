@@ -1,5 +1,5 @@
 import { useDroppable } from '@dnd-kit/core'
-import { type TaskColumnProps } from '@/interfaces/task.interface'
+import { type TaskColumnProps } from '@/types/task.d'
 import { FaPlus } from 'react-icons/fa6'
 
 export default function BoardColumn({ id, title, items, children }: TaskColumnProps) {

@@ -22,4 +22,15 @@ interface TaskItemProps {
   title: string
 }
 
-export type { TaskColumnProps, TaskItemWrapperProps, TaskItemDragableProps, TaskItemProps }
+type TaskType = {
+  id: UniqueIdentifier
+  content: string
+}
+
+type ContainerTaskType = {
+  id: UniqueIdentifier
+  title: string
+  items: TaskType[]
+}
+
+export type { TaskColumnProps, TaskItemWrapperProps, TaskItemDragableProps, TaskItemProps, TaskType, ContainerTaskType }

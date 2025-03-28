@@ -1,11 +1,11 @@
 import { ObjectId } from 'mongodb'
 
-const TaskStatusMap = {
-  0: 'Backlog',
-  1: 'ToDo',
-  2: 'InProgress',
-  3: 'InReview',
-  4: 'Completed'
+const TaskStatusMap: Record<TaskStatus, TaskStatusType> = {
+  [TaskStatus.Backlog]: 'Backlog',
+  [TaskStatus.ToDo]: 'ToDo',
+  [TaskStatus.InProgress]: 'InProgress',
+  [TaskStatus.InReview]: 'InReview',
+  [TaskStatus.Completed]: 'Completed'
 } as const
 
 type TaskStatusType = 'Backlog' | 'ToDo' | 'InProgress' | 'InReview' | 'Completed'
@@ -20,6 +20,7 @@ enum TaskStatus {
 
 interface TaskDTO {
   _id: ObjectId
+  task_code: string
   title: string
   description: string
   status: TaskStatusType

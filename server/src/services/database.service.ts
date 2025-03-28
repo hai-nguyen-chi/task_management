@@ -1,6 +1,7 @@
 import { Collection, Db, MongoClient } from 'mongodb'
 import { config } from 'dotenv'
 import TaskSchema from '@/models/Task.schema'
+import SequenceSchema from '@/models/Sequence.schema'
 
 config()
 
@@ -26,6 +27,10 @@ class DatabaseService {
 
   get tasks(): Collection<TaskSchema> {
     return this.db.collection('tasks')
+  }
+
+  get sequences(): Collection<SequenceSchema> {
+    return this.db.collection('sequences')
   }
 }
 

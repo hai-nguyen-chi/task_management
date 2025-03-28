@@ -3,8 +3,8 @@ import { RouteObject } from 'react-router-dom'
 
 const MainLayout = lazy(() => import('@/layouts/MainLayout'))
 
-const Login = lazy(() => import('@/views/Login'))
-const BoardContainer = lazy(() => import('@/views/board/BoardContainer'))
+const Login = lazy(() => import('@/pages/Login'))
+const BoardContainer = lazy(() => import('@/pages/board/BoardContainer'))
 
 const routes: RouteObject[] = [
   {

@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 import taskServices from '@/services/task.service'
-import { HTTP_STATUS } from '@/constants/httpStatus.constants'
+import { HTTP_STATUS } from '@/types/httpStatus.d'
 
 const getTaskList = async (req: Request, res: Response) => {
   const result = await taskServices.getTaskList()

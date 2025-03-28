@@ -2,7 +2,8 @@ import { config } from 'dotenv'
 import { ObjectId } from 'mongodb'
 import databaseService from '@/services/database.service'
 import TaskSchema from '@/models/Task.schema'
-import { TaskStatusMap, TaskDTO, TaskStatus } from '@/constants/task.constants'
+import { TaskStatusMap, TaskDTO, TaskStatus } from '@/types/task.d'
+import { getNextSequence } from '@/services/sequence.service'
 import _ from 'lodash'
 
 config()
@@ -26,9 +27,11 @@ class TaskServices {
   }
   async createTask(payload: TaskDTO) {
     const _id = new ObjectId()
+    const task_sequence = getNextSequence('task_code')
     const task = new TaskSchema({
       ...payload,
       _id,
+      task_code: `TK-${task_sequence}`,
       description: '',
       status: TaskStatus[payload.status],
       tags: []

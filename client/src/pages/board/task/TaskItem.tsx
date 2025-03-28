@@ -1,4 +1,4 @@
-import { type TaskItemProps } from '@/interfaces/task.interface'
+import { type TaskItemProps } from '@/types/task.d'
 
 export default function TaskItem({ title }: TaskItemProps) {
   return (

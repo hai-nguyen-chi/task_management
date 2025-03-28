@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Request, Response, NextFunction } from 'express'
-import { HTTP_STATUS } from '@/constants/httpStatus.constants'
+import { HTTP_STATUS } from '@/types/httpStatus.d'
 import lodash from 'lodash'
 import { ErrorWithStatus } from '@/models/Error.schema'
 
