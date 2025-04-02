@@ -1,5 +1,7 @@
+import { ObjectId } from 'mongodb'
+
 class SequenceSchema {
-  _id: string
+  _id: ObjectId
   sequence_value: number
 
   constructor(task: SequenceSchema) {

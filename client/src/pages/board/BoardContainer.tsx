@@ -16,7 +16,7 @@ import { type ContainerTaskType } from '@/types/task'
 import BoardColumn from '@/pages/board/BoardColumn'
 import TaskItemDragable from '@/pages/board/task/TaskItemDragable'
 import TaskItemWrapper from '@/pages/board/task/TaskItemWrapper'
-import TaskItem from '@/pages/board/task/TaskItem'
+import TaskItem from '@/features/task/TaskItem'
 
 export default function BoardContainer() {
   const [containers, setContainers] = useState<ContainerTaskType[]>([

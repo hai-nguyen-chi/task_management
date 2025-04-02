@@ -1,21 +1,31 @@
 import { ObjectId } from 'mongodb'
 
-const TaskStatusMap: Record<TaskStatus, TaskStatusType> = {
-  [TaskStatus.Backlog]: 'Backlog',
-  [TaskStatus.ToDo]: 'ToDo',
-  [TaskStatus.InProgress]: 'InProgress',
-  [TaskStatus.InReview]: 'InReview',
-  [TaskStatus.Completed]: 'Completed'
+const PriorityStatusMap: Record<PriorityStatus, PriorityStatusType> = {
+  [PriorityStatus.Lowest]: 'Lowest',
+  [PriorityStatus.Low]: 'Low',
+  [PriorityStatus.Medium]: 'Medium',
+  [PriorityStatus.High]: 'High',
+  [PriorityStatus.Highest]: 'Highest'
 } as const
 
-type TaskStatusType = 'Backlog' | 'ToDo' | 'InProgress' | 'InReview' | 'Completed'
+type PriorityStatusType = 'Lowest' | 'Low' | 'Medium' | 'High' | 'Highest'
 
-enum TaskStatus {
-  Backlog,
-  ToDo,
-  InProgress,
-  InReview,
-  Completed
+enum PriorityStatus {
+  Lowest,
+  Low,
+  Medium,
+  High,
+  Highest
+}
+
+enum MediaType {
+  Image,
+  Video
+}
+
+interface Media {
+  url: string
+  type: MediaType // video, image
 }
 
 interface TaskDTO {
@@ -23,10 +33,19 @@ interface TaskDTO {
   task_code: string
   title: string
   description: string
-  status: TaskStatusType
-  tags: ObjectId[]
+  status: ObjectId
+  tag: ObjectId
+  priority: PriorityStatusType
+  sprint: ObjectId
+  story_point_est: number
+  fix_version: string
+  due_date: Date
+  attachments: Media[]
+  comments: Comment[]
+  user_created_id: ObjectId
+  user_assignee_id: ObjectId
   created_at: Date
   updated_at: Date
 }
 
-export { TaskStatusMap, TaskStatusType, TaskStatus, TaskDTO }
+export { PriorityStatusMap, PriorityStatusType, PriorityStatus, Media, TaskDTO }
