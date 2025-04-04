@@ -1,7 +1,7 @@
 import { Collection, Db, MongoClient } from 'mongodb'
 import { config } from 'dotenv'
-import TaskSchema from '@/models/Task.schema'
-import SequenceSchema from '@/models/Sequence.schema'
+import UserSchema from '@/models/User.schema'
+import RefreshTokenSchema from '@/models/RefreshToken.schema'
 
 config()
 
@@ -25,12 +25,12 @@ class DatabaseService {
     }
   }
 
-  get tasks(): Collection<TaskSchema> {
-    return this.db.collection('tasks')
+  get users(): Collection<UserSchema> {
+    return this.db.collection('users')
   }
 
-  get sequences(): Collection<SequenceSchema> {
-    return this.db.collection('sequences')
+  get refreshTokens(): Collection<RefreshTokenSchema> {
+    return this.db.collection('refreshTokens')
   }
 }
 
