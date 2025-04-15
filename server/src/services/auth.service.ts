@@ -94,6 +94,7 @@ class AuthService {
         email_verify_token: verifyEmailToken
       })
     )
+    console.log('email_verify_token: ', verifyEmailToken)
     const user_id = user.insertedId.toString()
     const [access_token, refresh_token] = await this.signAccessTokenAndRefreshToken(user_id)
     await this.createRefreshToken({ token: refresh_token, user_id: user_id })
@@ -196,6 +197,7 @@ class AuthService {
         }
       }
     )
+    console.log('verifyEmailToken: ', verifyEmailToken)
   }
   private signForgotPasswordToken(user_id: string) {
     return signToken({
@@ -224,6 +226,7 @@ class AuthService {
         }
       }
     )
+    console.log('forgotPasswordToken: ', forgotPasswordToken)
   }
   async resetPassword(user_id: string, password: string) {
     await databaseService.users.updateOne(

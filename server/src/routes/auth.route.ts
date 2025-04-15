@@ -19,7 +19,6 @@ import {
   verifyEmailTokenValidator,
   changePasswordValidator,
   forgotPasswordValidator,
-  verifyForgotPasswordValidator,
   resetPasswordValidator
 } from '@/middlewares/auth.middleware'
 
@@ -33,7 +32,6 @@ authRoute.post('/verify-email', verifyEmailTokenValidator, wrapHandler(verifyEma
 authRoute.post('/resend-verify-email', accessTokenValidator, wrapHandler(resendVerifyEmailTokenController))
 authRoute.post('/change-password', changePasswordValidator, wrapHandler(changePasswordController))
 authRoute.post('/forgot-password', forgotPasswordValidator, wrapHandler(forgotPasswordController))
-authRoute.post('/verify-forgot-password', verifyForgotPasswordValidator, wrapHandler(verifyEmailTokenController))
 authRoute.post('/reset-password', resetPasswordValidator, wrapHandler(resetPasswordController))
 
 export default authRoute

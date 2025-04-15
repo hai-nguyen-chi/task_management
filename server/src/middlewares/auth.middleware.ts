@@ -277,11 +277,6 @@ const forgotPasswordValidator = validate(
     email: emailSchema
   })
 )
-const verifyForgotPasswordValidator = validate(
-  checkSchema({
-    forgot_password_token: forgotPasswordToken
-  })
-)
 const resetPasswordValidator = validate(
   checkSchema({
     password: passwordSchema,
@@ -304,6 +299,5 @@ export {
   loginValidator,
   verifyEmailTokenValidator,
   forgotPasswordValidator,
-  verifyForgotPasswordValidator,
   resetPasswordValidator
 }

@@ -41,7 +41,7 @@ const refreshTokenController = async (req: Request, res: Response) => {
 const resendVerifyEmailTokenController = async (req: Request, res: Response) => {
   const { user_id } = req.decoded_authorization as TokenPayload
   await authService.resendVerifyEmail(user_id)
-  res.status(HTTP_STATUS.NOT_FOUND).json()
+  res.status(HTTP_STATUS.NO_CONTENT).json()
 }
 
 const verifyEmailTokenController = async (req: Request, res: Response) => {
@@ -53,7 +53,7 @@ const verifyEmailTokenController = async (req: Request, res: Response) => {
 const forgotPasswordController = async (req: Request, res: Response) => {
   const { email } = req.body
   await authService.forgotPassword(email)
-  res.status(HTTP_STATUS.NOT_FOUND).json()
+  res.status(HTTP_STATUS.NO_CONTENT).json()
 }
 const resetPasswordController = async (req: Request, res: Response) => {
   const { user_id } = req.decoded_forgot_password_token as TokenPayload
