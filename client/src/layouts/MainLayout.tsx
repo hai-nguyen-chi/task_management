@@ -1,8 +1,9 @@
-import { Outlet } from 'react-router-dom'
+import { Navigate, Outlet } from 'react-router-dom'
 import Sidebar from '@/components/sidebar/SideBar'
 
 const MainLayout = () => {
-  return (
+  const isAuthenticated = localStorage.getItem('token')
+  return isAuthenticated ? (
     <div className='grid grid-cols-12 gap-4 p-4 h-screen'>
       <div className='col-span-2'>
         <Sidebar />
@@ -11,6 +12,8 @@ const MainLayout = () => {
         <Outlet />
       </div>
     </div>
+  ) : (
+    <Navigate to='/login' />
   )
 }
 

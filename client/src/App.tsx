@@ -4,8 +4,7 @@ import routes from '@/router/index.tsx'
 import '@/App.css'
 
 const AppRoutes = () => {
-  const element = useRoutes(routes)
-  return element
+  return useRoutes(routes)
 }
 
 const App: React.FC = () => {
