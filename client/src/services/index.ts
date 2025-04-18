@@ -7,8 +7,6 @@ const configHeaders = () => {
   }
 }
 
-console.log(import.meta.env, import.meta.env.VITE_BASE_URL)
-
 const apiService = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL
 })

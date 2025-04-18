@@ -1,7 +1,7 @@
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
-import { type TaskItemDragableProps } from '@/types/task.d'
-import TaskItemWrapper from '@/pages/board/task/TaskItemWrapper'
+import { type TaskItemDragableProps } from '@/types/task'
+import TaskItemWrapper from '@/features/task/TaskItemWrapper.tsx'
 
 export default function TaskItemDragable({ id, children }: TaskItemDragableProps) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id })

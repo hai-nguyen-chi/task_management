@@ -1,5 +1,5 @@
 import type React from 'react'
-import { type TaskItemWrapperProps } from '@/types/task.d'
+import { type TaskItemWrapperProps } from '@/types/task'
 
 const handleClick = (e: React.MouseEvent) => {
   console.log('click')

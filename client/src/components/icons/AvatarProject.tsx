@@ -1,6 +1,8 @@
-const Logo = () => {
+import * as React from 'react'
+
+const AvatarProject = ({ className }: React.ComponentProps<'div'>) => {
   return (
-    <svg height='100%' viewBox='0 0 24 24'>
+    <svg height='100%' viewBox='0 0 24 24' className={className}>
       <path
         fill='var(--tile-color,#1868db)'
         d='M0 6a6 6 0 0 1 6-6h12a6 6 0 0 1 6 6v12a6 6 0 0 1-6 6H6a6 6 0 0 1-6-6z'
@@ -13,4 +15,4 @@ const Logo = () => {
   )
 }
 
-export { Logo }
+export default AvatarProject

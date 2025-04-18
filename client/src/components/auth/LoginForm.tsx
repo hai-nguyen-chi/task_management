@@ -4,14 +4,12 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { EyeIcon, EyeOffIcon, LockIcon, MailIcon } from 'lucide-react'
 import { Link } from 'react-router-dom'
-import { login } from '@/services/auth.service'
-
-interface LoginResponse {
-  access_token: string
-  refresh_token: string
-}
+import { login as apiLogin } from '@/services/auth.service'
+import { login as storeLogin } from '@/store/authSlice.ts'
+import { useAppDispatch } from '@/hooks/index.ts'
 
 const LoginForm = () => {
+  const dispatch = useAppDispatch()
   const [isLoading, setIsLoading] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
   const [email, setEmail] = useState('')
@@ -36,15 +34,14 @@ const LoginForm = () => {
     setIsLoading(true)
 
     try {
-      const loginResponse = await login(payload)
-      const { data }: { data: LoginResponse } = loginResponse
-      console.log(data)
+      const loginResponse = await apiLogin(payload)
+      const { data } = loginResponse
+      dispatch(storeLogin(data))
     } catch (error) {
       console.error('Axios error:', error)
+    } finally {
+      setIsLoading(false)
     }
-
-    setIsLoading(false)
-    // Handle login logic here
   }
 
   return (

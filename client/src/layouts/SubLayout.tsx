@@ -1,5 +1,4 @@
 import { Navigate, Outlet } from 'react-router-dom'
-import Sidebar from '@/layouts/parts/SideBar.tsx'
 import Header from '@/layouts/parts/Header.tsx'
 
 const MainLayout = () => {
@@ -8,10 +7,7 @@ const MainLayout = () => {
     <>
       <Header />
       <div className='grid grid-cols-12 gap-4 px-4 h-[calc(100vh-60px)]'>
-        <div className='col-span-2'>
-          <Sidebar />
-        </div>
-        <div className='col-span-10 overflow-hidden'>
+        <div className='col-span-12 overflow-hidden'>
           <Outlet />
         </div>
       </div>
