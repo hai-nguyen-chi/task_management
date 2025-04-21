@@ -2,6 +2,9 @@ import { Collection, Db, MongoClient } from 'mongodb'
 import { config } from 'dotenv'
 import UserSchema from '@/models/User.schema'
 import RefreshTokenSchema from '@/models/RefreshToken.schema'
+import ProjectSchema from '@/models/Project.schema'
+import SprintSchema from '@/models/Sprint.schema'
+import TagSchema from '@/models/Tag.schema'
 
 config()
 
@@ -31,6 +34,18 @@ class DatabaseService {
 
   get refreshTokens(): Collection<RefreshTokenSchema> {
     return this.db.collection('refreshTokens')
+  }
+
+  get projects(): Collection<ProjectSchema> {
+    return this.db.collection('projects')
+  }
+
+  get sprints(): Collection<SprintSchema> {
+    return this.db.collection('sprints')
+  }
+
+  get tags(): Collection<TagSchema> {
+    return this.db.collection('tags')
   }
 }
 

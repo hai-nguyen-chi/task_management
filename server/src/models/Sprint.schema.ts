@@ -1,16 +1,20 @@
 import { ObjectId } from 'mongodb'
+import { SprintDTO, SprintStatus } from '@/types/sprint'
 
 class SprintSchema {
   _id: ObjectId
   title: string
+  status: SprintStatus
   created_at: Date
   updated_at: Date
 
-  constructor(print: SprintSchema) {
-    this._id = print._id
-    this.title = print.title
-    this.created_at = print.created_at || new Date()
-    this.updated_at = print.updated_at || new Date()
+  constructor(sprint: SprintDTO) {
+    const date = new Date()
+    this._id = sprint._id
+    this.title = sprint.title
+    this.status = sprint.status || SprintStatus.ToDo
+    this.created_at = sprint.created_at || date
+    this.updated_at = sprint.updated_at || date
   }
 }
 

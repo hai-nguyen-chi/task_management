@@ -12,12 +12,6 @@ enum TokenType {
   EmailVerifyToken
 }
 
-interface Comment {
-  user_id: ObjectId
-  text: string
-  mentions: ObjectId[]
-}
-
 interface LoginPayload {
   email: string
   password: string
@@ -41,7 +35,7 @@ interface ChangePasswordPayload {
   confirm_password?: string
 }
 
-interface UserObject {
+interface UserDTO {
   _id: ObjectId
   name: string
   email: string
@@ -57,13 +51,4 @@ interface UserObject {
   cover_photo?: string
 }
 
-export {
-  UserVerifyStatus,
-  TokenType,
-  Comment,
-  LoginPayload,
-  RegisterPayload,
-  LogoutPayload,
-  ChangePasswordPayload,
-  UserObject
-}
+export { UserVerifyStatus, TokenType, LoginPayload, RegisterPayload, LogoutPayload, ChangePasswordPayload, UserDTO }

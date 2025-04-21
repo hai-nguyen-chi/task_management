@@ -1,4 +1,5 @@
 import { ObjectId } from 'mongodb'
+import { TagDTO } from '@/types/tag'
 
 class TagSchema {
   _id: ObjectId
@@ -8,13 +9,14 @@ class TagSchema {
   created_at: Date
   updated_at: Date
 
-  constructor(tag: TagSchema) {
+  constructor(tag: TagDTO) {
+    const date = new Date()
     this._id = tag._id
     this.title = tag.title
     this.color = tag.color
     this.background_color = tag.background_color
-    this.created_at = tag.created_at || new Date()
-    this.updated_at = tag.updated_at || new Date()
+    this.created_at = tag.created_at || date
+    this.updated_at = tag.updated_at || date
   }
 }
 

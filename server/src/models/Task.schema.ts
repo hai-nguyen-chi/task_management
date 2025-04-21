@@ -1,6 +1,5 @@
 import { ObjectId } from 'mongodb'
-import { PriorityStatus, Media } from '@/types/task'
-import { Comment } from '@/types/user'
+import { PriorityStatus, Media, Comment } from '@/types/task'
 
 class TaskSchema {
   _id: ObjectId

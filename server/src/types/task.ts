@@ -1,18 +1,11 @@
 import { ObjectId } from 'mongodb'
 
-const PriorityStatusMap: Record<PriorityStatus, PriorityStatusType> = {
-  [PriorityStatus.Lowest]: 'Lowest',
-  [PriorityStatus.Low]: 'Low',
-  [PriorityStatus.Medium]: 'Medium',
-  [PriorityStatus.High]: 'High',
-  [PriorityStatus.Highest]: 'Highest'
-} as const
-
-type PriorityStatusType = 'Lowest' | 'Low' | 'Medium' | 'High' | 'Highest'
+interface TaskStatus {
+  title: string
+  isDefault: boolean
+}
 
 enum PriorityStatus {
-  Lowest,
-  Low,
   Medium,
   High,
   Highest
@@ -28,24 +21,10 @@ interface Media {
   type: MediaType // video, image
 }
 
-interface TaskDTO {
-  _id: ObjectId
-  task_code: string
-  title: string
-  description: string
-  status: ObjectId
-  tag: ObjectId
-  priority: PriorityStatusType
-  sprint: ObjectId
-  story_point_est: number
-  fix_version: string
-  due_date: Date
-  attachments: Media[]
-  comments: Comment[]
-  user_created_id: ObjectId
-  user_assignee_id: ObjectId
-  created_at: Date
-  updated_at: Date
+interface Comment {
+  user_id: ObjectId
+  text: string
+  mentions: ObjectId[]
 }
 
-export { PriorityStatusMap, PriorityStatusType, PriorityStatus, Media, TaskDTO }
+export { TaskStatus, PriorityStatus, Media, Comment }
