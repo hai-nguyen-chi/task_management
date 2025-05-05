@@ -18,6 +18,7 @@ import RefreshTokenSchema from '@/models/RefreshToken.schema'
 import { ErrorWithStatus } from '@/models/Error.schema'
 import { HTTP_STATUS } from '@/types/httpStatus'
 import { MESSAGES } from '@/types/messages'
+import { user_permission } from '@/utils/permission'
 
 config()
 
@@ -90,6 +91,8 @@ class AuthService {
       new UserSchema({
         ...payload,
         _id,
+        permissions: payload.permissions || user_permission,
+        projects: payload.projects || [],
         password: sha256(payload.password),
         email_verify_token: verifyEmailToken
       })
@@ -128,10 +131,20 @@ class AuthService {
       }
     })
   }
-  private signAccessToken(user_id: string) {
+  private async signAccessToken(user_id: string) {
+    const _id = new ObjectId(user_id)
+    const user = await databaseService.users.findOne({ _id })
+    if (!user) {
+      throw new ErrorWithStatus({
+        message: 'USER_ID NOT FOUND',
+        status: HTTP_STATUS.NOT_FOUND
+      })
+    }
     return signToken({
       payload: {
         user_id,
+        permissions: user.permissions,
+        projects: user.projects,
         token_type: TokenType.AccessToken
       },
       privateKey: process.env.JWT_ACCESS_TOKEN_SECRET_KEY as string,

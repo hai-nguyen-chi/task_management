@@ -23,6 +23,8 @@ interface RegisterPayload {
   password: string
   confirm_password: string
   date_of_birth: string
+  permissions: string[]
+  projects: UserProjectRole[]
 }
 
 interface LogoutPayload {
@@ -33,6 +35,11 @@ interface ChangePasswordPayload {
   old_password?: string
   password: string
   confirm_password?: string
+}
+
+interface UserProjectRole {
+  project_id: ObjectId
+  isAdmin: boolean
 }
 
 interface UserDTO {
@@ -49,6 +56,17 @@ interface UserDTO {
   username?: string
   avatar?: string
   cover_photo?: string
+  permissions: string[]
+  projects: UserProjectRole[]
 }
 
-export { UserVerifyStatus, TokenType, LoginPayload, RegisterPayload, LogoutPayload, ChangePasswordPayload, UserDTO }
+export {
+  UserVerifyStatus,
+  TokenType,
+  LoginPayload,
+  RegisterPayload,
+  LogoutPayload,
+  ChangePasswordPayload,
+  UserProjectRole,
+  UserDTO
+}

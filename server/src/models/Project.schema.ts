@@ -1,6 +1,6 @@
 import { ObjectId } from 'mongodb'
 import { TaskStatus } from '@/types/task'
-import { ProjectDTO } from '@/types/project'
+import { ProjectDTO, ProjectMemberRole } from '@/types/project'
 
 class ProjectSchema {
   _id: ObjectId
@@ -9,6 +9,7 @@ class ProjectSchema {
   key: string
   project_url: string
   task_status: TaskStatus[]
+  members: ProjectMemberRole[]
   created_at: Date
   updated_at: Date
 
@@ -20,6 +21,7 @@ class ProjectSchema {
     this.key = project.key
     this.project_url = project.project_url
     this.task_status = project.task_status || []
+    this.members = project.members || []
     this.created_at = project.created_at || date
     this.updated_at = project.updated_at || date
   }

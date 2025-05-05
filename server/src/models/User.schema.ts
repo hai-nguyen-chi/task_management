@@ -1,5 +1,5 @@
 import { ObjectId } from 'mongodb'
-import { UserDTO, UserVerifyStatus } from '@/types/user'
+import { UserProjectRole, UserDTO, UserVerifyStatus } from '@/types/user'
 
 class UserSchema {
   _id: ObjectId
@@ -15,6 +15,8 @@ class UserSchema {
   username: string
   avatar: string
   cover_photo: string
+  permissions: string[]
+  projects: UserProjectRole[]
 
   constructor(user: UserDTO) {
     const date = new Date()
@@ -31,6 +33,8 @@ class UserSchema {
     this.username = user.username || ''
     this.avatar = user.avatar || ''
     this.cover_photo = user.cover_photo || ''
+    this.permissions = user.permissions || []
+    this.projects = user.projects || []
   }
 }
 

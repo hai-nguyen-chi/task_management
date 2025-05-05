@@ -1,4 +1,5 @@
 import { ObjectId } from 'mongodb'
+import { UserProjectRole } from '@/types/user'
 
 enum TokenType {
   AccessToken,
@@ -14,6 +15,15 @@ interface RefreshTokenType {
   user_id: string
 }
 
+interface AccessTokenPayload {
+  user_id: string
+  token_type: TokenType
+  permissions: string[]
+  projects: UserProjectRole[]
+  iat: number
+  exp: number
+}
+
 interface TokenPayload {
   user_id: string
   token_type: TokenType
@@ -21,4 +31,4 @@ interface TokenPayload {
   exp: number
 }
 
-export { RefreshTokenType, TokenPayload }
+export { RefreshTokenType, AccessTokenPayload, TokenPayload }

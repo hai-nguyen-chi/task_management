@@ -1,10 +1,12 @@
 import { config } from 'dotenv'
 import jwt, { SignOptions } from 'jsonwebtoken'
-import { TokenType } from '@/types/user'
+import { TokenType, UserProjectRole } from '@/types/user'
 config()
 
 interface Payload {
   user_id: string
+  permissions?: string[]
+  projects?: UserProjectRole[]
   token_type: TokenType
 }
 
